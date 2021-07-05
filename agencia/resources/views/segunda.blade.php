@@ -16,7 +16,10 @@
         usuario desconocido
     @endif
 
-
+    <hr>
+    @for( $i=0; $i<$cantidad; $i++ )
+        {{ $comidas[$i] }} <br>
+    @endfor
 
 </body>
 </html>

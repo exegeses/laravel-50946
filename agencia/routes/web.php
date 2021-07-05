@@ -35,5 +35,12 @@ Route::get('/prueba2', function ()
                 'Guiso de lentejas',
                 'Lomito completo'
                ];
-    return view('segunda', [ 'nombre'=>$nombre ]);
+    $cantidad = count($comidas);
+    return view('segunda',
+                        [
+                            'nombre'=>$nombre,
+                            'comidas'=>$comidas,
+                            'cantidad'=>$cantidad
+                        ]
+            );
 });
