@@ -3,7 +3,7 @@
 # Curso de Laravel código 50946
 
 > Curso de Laravel |  
-> Lunes y Miércoles 19hs a 22hs (Arg) |  
+> Lunes, Martes y Miércoles 19hs a 22hs (Arg) |  
 > Código: 50946 |  
 > sensei: Marcos Pinardi |
 
