@@ -58,3 +58,18 @@ Route::get('/agregarRegion', function ()
 {
     return view('agregarRegion');
 });
+Route::post('/agregarRegion', function ()
+{
+    //capturamos dato enviado por el form
+    $regNombre = $_POST['regNombre'];
+    //guardamos en tabla regiones
+    DB::insert('INSERT INTO regiones
+                                    ( regNombre )
+                                VALUE
+                                    ( :regNombre )',
+                        [ $regNombre ]
+                );
+    //retornamos algo
+    return redirect('/adminRegiones')
+                ->with([ 'mensaje'=>'Región: '.$regNombre.' agregada correctamente' ]);
+});
