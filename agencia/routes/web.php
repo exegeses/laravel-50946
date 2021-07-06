@@ -52,5 +52,9 @@ Route::get('/adminRegiones', function ()
     //obtenemos listado de regiones
     $regiones = DB::select('SELECT regID, regNombre FROM regiones');
     //retornamos vista con datos
-    return view('adminRegiones', [ 'regiones'=>$regiones ]);
+    return view('adminRegiones', [ 'regiones' => $regiones ]);
+});
+Route::get('/agregarRegion', function ()
+{
+    return view('agregarRegion');
 });
