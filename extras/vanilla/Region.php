@@ -46,4 +46,15 @@ class Region
         return true;
     }
 
+    public function eliminarRegion()
+    {
+        $regID = $_POST['regID'];
+        $link = Conexion::conectar();
+        $sql = 'DELETE FROM regiones
+                    WHERE regID = :id';
+        $stmt = $link->prepare($sql);
+        $stmt->bindParam(':id', $regID);
+        $stmt->execute();
+    }
+
 }
