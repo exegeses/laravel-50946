@@ -50,7 +50,10 @@ Route::get('/prueba2', function ()
 Route::get('/adminRegiones', function ()
 {
     //obtenemos listado de regiones
+    /* raw SQL
     $regiones = DB::select('SELECT regID, regNombre FROM regiones');
+    */
+    $regiones = DB::table('regiones')->get();
     //retornamos vista con datos
     return view('adminRegiones', [ 'regiones' => $regiones ]);
 });
@@ -63,13 +66,50 @@ Route::post('/agregarRegion', function ()
     //capturamos dato enviado por el form
     $regNombre = $_POST['regNombre'];
     //guardamos en tabla regiones
+    /* raw SQL
     DB::insert('INSERT INTO regiones
+
+
                                     ( regNombre )
                                 VALUE
                                     ( :regNombre )',
                         [ $regNombre ]
                 );
-    //retornamos algo
+    */
+    DB::table('regiones')->insert([ 'regNombre'=>$regNombre ]);
+    //retornamos redirección con mensaje ok
     return redirect('/adminRegiones')
                 ->with([ 'mensaje'=>'Región: '.$regNombre.' agregada correctamente' ]);
+});
+Route::get('/modificarRegion/{id}', function ($id)
+{
+    //obtenemos datos de una recion por su ID
+    $region = DB::select('SELECT regID, regNombre
+                             FROM regiones
+                            WHERE regID = :id',
+                            [ $id ]
+                );
+    //retornamos vista del form con datos
+    return view('modificarRegion', [ 'region'=>$region ]);
+});
+Route::put('/modificarRegion', function ()
+{
+    //capturamos dato enviado por el form
+    $regNombre = $_POST['regNombre'];
+    $regID = $_POST['regID'];
+    //modificar en tabla regiones
+    /*
+    DB::update('UPDATE regiones
+                    SET
+                        regNombre = :regNombre
+                  WHERE regID = :regID',
+                    [ $regNombre, $regID ]
+        );
+    */
+    DB::table('regiones')
+            ->where('regID', $regID)
+            ->update( [ 'regNombre'=>$regNombre ] );
+    //retornamos redirección con mensaje ok
+    return redirect('/adminRegiones')
+        ->with([ 'mensaje'=>'Región: '.$regNombre.' modificada correctamente' ]);
 });

@@ -63,3 +63,11 @@
 	DB::update('UPDATE ....');
 	DB::delete('DELETE FROM...');
 
+## Fluent Query Builder
+
+    DB::table('nTabla')->get();
+    DB::table('nTabla')->select('campo1, campo2')->get();
+
+    DB::table('nTabla')->insert( [ 'campo'=>'valor' ] );
+    DB::table('nTabla')->where('campo', 'valor')->update( [ 'campo'=>'valor' ] )
+    DB::table('nTabla')->where('campo', 'valor')->delete()
