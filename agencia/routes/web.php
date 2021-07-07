@@ -83,7 +83,7 @@ Route::post('/agregarRegion', function ()
 });
 Route::get('/modificarRegion/{id}', function ($id)
 {
-    //obtenemos datos de una recion por su ID
+    //obtenemos datos de una region por su ID
     $region = DB::select('SELECT regID, regNombre
                              FROM regiones
                             WHERE regID = :id',
@@ -112,4 +112,18 @@ Route::put('/modificarRegion', function ()
     //retornamos redirección con mensaje ok
     return redirect('/adminRegiones')
         ->with([ 'mensaje'=>'Región: '.$regNombre.' modificada correctamente' ]);
+});
+Route::get('/eliminarRegion/{id}', function($id)
+{
+    //obtenomos una region por su id
+    /*
+    $region = DB::select('SELECT regID, regNombre
+                            FROM regiones
+                            WHERE regID = :id', [$id]
+                    );
+    */
+    $region = DB::table('regiones')
+                    ->where('regID', $id)
+                    ->first();
+    return view('eliminarRegion', [ 'region'=>$region ]);
 });
