@@ -141,3 +141,7 @@ Route::delete('/eliminarRegion', function ()
     return redirect('/adminRegiones')
                 ->with(['mensaje'=> 'Region: ' .$regNombre.' eliminada correctamente']);
 });
+
+###########################################
+#### CRUD de destinos
+
