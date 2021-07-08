@@ -162,4 +162,40 @@ Route::get('/adminDestinos', function ()
                         ->get();
     return view('adminDestinos', [ 'destinos'=>$destinos ]);
 });
-
+Route::get('/agregarDestino', function()
+{
+    //obtenemos listado de regiones
+    /*$regiones = DB::select('SELECT * FROM regiones');*/
+    $regiones = DB::table('regiones')->get();
+    return view('agregarDestino', [ 'regiones'=>$regiones ]);
+});
+Route::post('/agregarDestino', function ()
+{
+    //capturamos datos enviados por el form
+    $destNombre = $_POST['destNombre'];
+    $regID = $_POST['regID'];
+    $destPrecio = $_POST['destPrecio'];
+    $destAsientos = $_POST['destAsientos'];
+    $destDisponibles = $_POST['destDisponibles'];
+    //insertamos datos en tabla
+    /*DB::insert(
+                    'INSERT INTO destinos
+                        ( destNombre, regID, destPrecio, destAsientos, destDisponibles )
+                       VALUE
+                        ( :destNombre, :regID, :destPrecio, :destAsientos, :destDisponibles )',
+                        [ $destNombre, $regID, $destPrecio, $destAsientos, $destDisponibles ]
+            );*/
+    BD::table('destinos')
+                ->insert(
+                    [
+                        'destNombre'=>$destNombre,
+                        'regID'=>$regID,
+                        'destPrecio'=>$destPrecio,
+                        'destAsientos'=>$destAsientos,
+                        'destDisponibles'=>$destDisponibles
+                    ]
+                );
+    //redirigimos con mensaje de ok
+    return redirect('/adminDestinos')
+        ->with(['mensaje' => 'Destino ' . $destNombre . ' agregado correctamente']);
+});
