@@ -145,3 +145,21 @@ Route::delete('/eliminarRegion', function ()
 ###########################################
 #### CRUD de destinos
 
+Route::get('/adminDestinos', function ()
+{
+    //obtenemos listado de destinos
+    /*
+    $destinos = DB::select(
+                            'SELECT destID, destNombre, regNombre, destPrecio
+                                FROM destinos as d
+                                INNER JOIN regiones as r
+                                    ON d.regID = r.regID'
+                );
+    */
+    $destinos = DB::table('destinos as d')
+                        ->join('regiones as r', 'd.regID', '=', 'r.regID')
+                        ->select('destID', 'destNombre', 'regNombre', 'destPrecio')
+                        ->get();
+    return view('adminDestinos', [ 'destinos'=>$destinos ]);
+});
+
