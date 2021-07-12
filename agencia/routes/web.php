@@ -247,3 +247,16 @@ Route::get('/eliminarDestino/{id}', function ($id)
         ->where('destID', $id)->first();
     return view('eliminarDestino', [ 'destino'=>$destino ]);
 });
+Route::delete('/eliminarDestino', function ()
+{
+    //capturamos datos enviados por el from
+    $destNombre = $_POST['destNombre'];
+    $destID = $_POST['destID'];
+    //eliminamos el destino
+    DB::table('destinos')
+            ->where('destID', $destID)
+            ->delete();
+    //redirigimos con mensaje de ok
+    return redirect('/adminDestinos')
+        ->with(['mensaje' => 'Destino ' . $destNombre . ' eliminado correctamente']);
+});
