@@ -239,3 +239,11 @@ Route::put('/modificarDestino', function ()
     return redirect('/adminDestinos')
         ->with(['mensaje' => 'Destino ' . $destNombre . ' modificado correctamente']);
 });
+Route::get('/eliminarDestino/{id}', function ($id)
+{
+    //obtenemos datos de un destino por su id
+    $destino = DB::table('destinos')
+        ->join('regiones', 'destinos.regID', '=', 'regiones.regID')
+        ->where('destID', $id)->first();
+    return view('eliminarDestino', [ 'destino'=>$destino ]);
+});
