@@ -23,23 +23,22 @@
                 </tr>
             </thead>
             <tbody>
-
+            @foreach( $categorias as $categoria )
                 <tr>
-                    <td>#</td>
-                    <td>categoria</td>
+                    <td>{{ $categoria->idCategoria }}</td>
+                    <td>{{ $categoria->catNombre }}</td>
                     <td>
-                        <a href="/modificarCategoria" class="btn btn-outline-secondary">
+                        <a href="/modificarCategoria/{{ $categoria->idCategoria }}" class="btn btn-outline-secondary">
                             Modificar
                         </a>
                     </td>
                     <td>
-                        <a href="/eliminarCategoria" class="btn btn-outline-secondary">
+                        <a href="/eliminarCategoria/{{ $categoria->idCategoria }}" class="btn btn-outline-secondary">
                             Eliminar
                         </a>
                     </td>
                 </tr>
-
-
+            @endforeach
             </tbody>
         </table>
 

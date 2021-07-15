@@ -34,6 +34,21 @@ class MarcaController extends Controller
     }
 
     /**
+     * @param Request $request
+     */
+    private function validarForm(Request $request): void
+    {
+        $request->validate(
+            ['mkNombre' => 'required|min:2|max:50'],
+            [
+                'mkNombre.required' => 'El campo "Nombre de la marca" es obligatorio.',
+                'mkNombre.min' => 'El campo "Nombre de la marca" debe contener al menos 2 caractéres.',
+                'mkNombre.max' => 'El campo "Nombre de la marca" debe contener 50 caractéres como máximo.'
+            ]
+        );
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,14 +60,7 @@ class MarcaController extends Controller
         #$mkNombre = $_POST['mkNombre'];
         $mkNombre = $request->mkNombre;
         //validación
-        $request->validate(
-                        [ 'mkNombre'=>'required|min:2|max:50' ],
-                        [
-                           'mkNombre.required'=>'El campo "Nombre de la marca" es obligatorio.',
-                           'mkNombre.min'=>'El campo "Nombre de la marca" debe contener al menos 2 caractéres.',
-                           'mkNombre.max'=>'El campo "Nombre de la marca" debe contener 50 caractéres como máximo.'
-                        ]
-                    );
+        $this->validarForm($request);
         //instanciación, asignación y gaurdado
         $Marca = new Marca;
         $Marca->mkNombre = $mkNombre;
@@ -83,7 +91,10 @@ class MarcaController extends Controller
      */
     public function edit($id)
     {
-        //
+        //obtenemos datos de una marca
+        $Marca = Marca::find($id);
+        //retornamos vista con datos
+        return view('modificarMarca', [ 'Marca'=>$Marca ]);
     }
 
     /**
@@ -93,9 +104,11 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $mkNombre = $request->mkNombre;
+        //validacion
+
     }
 
     /**
@@ -108,4 +121,5 @@ class MarcaController extends Controller
     {
         //
     }
+
 }

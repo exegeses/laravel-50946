@@ -14,7 +14,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::paginate(7);
+        return view('adminCategorias', [ 'categorias'=>$categorias ]);
     }
 
     /**
@@ -24,7 +25,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('agregarCategoria');
     }
 
     /**
@@ -35,7 +36,26 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //captura de dato
+        $catNombre = $request->catNombre;
+        //validación
+        $request->validate(
+                        [ 'catNombre'=>'required|min:2|max:50' ],
+                        [
+                            'catNombre.required'=>'El campo "Nombre de la categoría" es obligatorio.',
+                            'catNombre.min'=>'El campo "Nombre de la categoría" debe contener al menos 2 caractéres.',
+                            'catNombre.max'=>'El campo "Nombre de la categoría" debe contener 50 caractéres como máximo.'
+                        ]
+                    );
+        //instanciar, asignar, guardar en bbdd
+        $Categoria = new Categoria;
+        $Categoria->catNombre = $catNombre;
+        $Categoria->save();
+        //redirección con mensaje ok
+        return redirect('/adminCategorias')
+            ->with(
+                ['mensaje'=>'Categoría: '.$catNombre. ' agregada correctamente.']
+            );
     }
 
     /**

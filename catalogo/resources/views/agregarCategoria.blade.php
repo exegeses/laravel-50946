@@ -2,20 +2,20 @@
 
     @section('contenido')
 
-        <h1>Alta de una nueva marca</h1>
+        <h1>Alta de una nueva categoría</h1>
 
         <div class="alert bg-light border border-white shadow round col-8 mx-auto p-4">
 
-            <form action="/agregarMarca" method="post">
+            <form action="/agregarCategoria" method="post">
             @csrf
                 <div class="form-group">
-                    <label for="mkNombre">Nombre de la marca</label>
-                    <input type="text" name="mkNombre"
-                           value="{{ old('mkNombre') }}"
-                           class="form-control" id="mkNombre">
+                    <label for="catNombre">Nombre de la categoría</label>
+                    <input type="text" name="catNombre"
+                           value="{{ old('catNombre') }}"
+                           class="form-control" id="catNombre">
                 </div>
-                <button class="btn btn-dark mr-3">Agregar marca</button>
-                <a href="/adminMarcas" class="btn btn-outline-secondary">
+                <button class="btn btn-dark mr-3">Agregar categoría</button>
+                <a href="/adminCategorias" class="btn btn-outline-secondary">
                     Volver a panel
                 </a>
             </form>
