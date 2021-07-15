@@ -108,7 +108,18 @@ class MarcaController extends Controller
     {
         $mkNombre = $request->mkNombre;
         //validacion
-
+        $this->validarForm($request);
+        //obtenemos datos de la marca
+        $Marca = Marca::find($request->idMarca);
+        //modificamos atributo
+        $Marca->mkNombre = $mkNombre;
+        //guardamos en bbdd
+        $Marca->save();
+        //redirección con mensaje ok
+        return redirect('/adminMarcas')
+            ->with(
+                ['mensaje'=>'Marca: '.$mkNombre. ' modificada correctamente.']
+            );
     }
 
     /**
