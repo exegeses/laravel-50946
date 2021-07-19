@@ -34,3 +34,6 @@ use App\Http\Controllers\CategoriaController;
 Route::get('/adminCategorias', [ CategoriaController::class, 'index' ]);
 Route::get('/agregarCategoria', [ CategoriaController::class, 'create' ]);
 Route::post('/agregarCategoria', [ CategoriaController::class, 'store' ]);
+
+########################################
+###### CRUD de productos

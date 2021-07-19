@@ -69,7 +69,10 @@ class MarcaController extends Controller
         //redirección con mensaje ok
         return redirect('/adminMarcas')
                     ->with(
-                        ['mensaje'=>'Marca: '.$mkNombre. ' agregada correctamente.']
+                        [
+                            'mensaje'=>'Marca: '.$mkNombre. ' agregada correctamente.',
+                            'css' => 'success'
+                        ]
                     );
     }
 
@@ -119,7 +122,10 @@ class MarcaController extends Controller
         //redirección con mensaje ok
         return redirect('/adminMarcas')
             ->with(
-                ['mensaje'=>'Marca: '.$mkNombre. ' modificada correctamente.']
+                [
+                    'mensaje'=>'Marca: '.$mkNombre. ' modificada correctamente.',
+                    'css' => 'success'
+                ]
             );
     }
 
@@ -162,7 +168,8 @@ class MarcaController extends Controller
         return redirect('/adminMarcas')
                     ->with(
                         [
-                            'mensaje'=>'Marca: '.$request->mkNombre.' eliminada correctamente.'
+                            'mensaje'=>'Marca: '.$request->mkNombre.' eliminada correctamente.',
+                            'css' => 'success'
                         ]
                     );
     }
