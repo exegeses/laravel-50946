@@ -141,6 +141,13 @@ class MarcaController extends Controller
             return view('eliminarMarca', [ 'Marca'=>$Marca ]);
         }
         ##redirigir a admin con mensaje que no se puede eliminar
+        return redirect('/adminMarcas')
+                    ->with(
+                        [
+                            'mensaje'=>'No se puede eliminar la marca: '.$Marca->mkNombre.' porque tiene productos asociados.',
+                            'css' => 'warning'
+                        ]
+                    );
     }
 
     /**
