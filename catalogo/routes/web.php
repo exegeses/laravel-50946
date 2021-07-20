@@ -37,3 +37,7 @@ Route::post('/agregarCategoria', [ CategoriaController::class, 'store' ]);
 
 ########################################
 ###### CRUD de productos
+use App\Http\Controllers\ProductoController;
+Route::get('/adminProductos', [ ProductoController::class, 'index' ]);
+Route::get('/agregarProducto', [ ProductoController::class, 'create' ]);
+Route::post('/agregarProducto', [ ProductoController::class, 'store' ]);
