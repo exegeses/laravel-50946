@@ -21,14 +21,14 @@
                     </div>
                     <input type="number" name="prdPrecio"
                            value="{{ old('prdPrecio') }}"
-                           class="form-control">
+                           class="form-control" step="0.01">
                 </div>
                 <br>
                 Marca: <br>
                 <select name="idMarca" class="form-control">
                     <option value="">Seleccione una marca</option>
                 @foreach( $marcas as $marca )
-                    <option value="{{ $marca->idMarca }}">{{ $marca->mkNombre }}</option>
+                    <option {{ ($marca->idMarca == old('idMarca'))?'selected':'' }} value="{{ $marca->idMarca }}">{{ $marca->mkNombre }}</option>
                 @endforeach
                 </select>
                 <br>
@@ -36,7 +36,7 @@
                 <select name="idCategoria" class="form-control">
                     <option value="">Seleccione una categoría</option>
                 @foreach( $categorias as $categoria )
-                    <option value="{{ $categoria->idCategoria }}">{{ $categoria->catNombre }}</option>
+                    <option  {{ ($categoria->idCategoria == old('idCategoria'))?'selected':'' }}  value="{{ $categoria->idCategoria }}">{{ $categoria->catNombre }}</option>
                 @endforeach
                 </select>
                 <br>
@@ -49,7 +49,6 @@
                        class="form-control" min="0">
                 <br>
                 Imagen: <br>
-
                 <div class="custom-file mt-1 mb-4">
                     <input type="file" name="prdImagen"  class="custom-file-input" id="customFileLang" lang="es">
                     <label class="custom-file-label" for="customFileLang" data-browse="Buscar en disco">Seleccionar Archivo: </label>
@@ -71,6 +70,18 @@
                 </ul>
             </div>
         @endif
+
+        <script>
+            var campo = document.querySelector('input[name="prdImagen"]');
+            var caja  = document.querySelector('.custom-file-label');
+
+            campo.addEventListener("change", cambiarTexto);
+            function cambiarTexto()
+            {
+                caja.innerText = campo.value;
+            }
+
+        </script>
 
    @endsection
 
