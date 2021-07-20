@@ -10,14 +10,18 @@
             <form action="/agregarProducto" method="post" enctype="multipart/form-data">
         @csrf
                 Nombre: <br>
-                <input type="text" name="prdNombre" class="form-control">
+                <input type="text" name="prdNombre"
+                       value="{{ old('prdNombre') }}"
+                       class="form-control">
                 <br>
                 Precio: <br>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">$</div>
                     </div>
-                    <input type="number" name="prdPrecio" class="form-control">
+                    <input type="number" name="prdPrecio"
+                           value="{{ old('prdPrecio') }}"
+                           class="form-control">
                 </div>
                 <br>
                 Marca: <br>
@@ -37,10 +41,12 @@
                 </select>
                 <br>
                 Presentacion: <br>
-                <textarea name="prdPresentacion" class="form-control"></textarea>
+                <textarea name="prdPresentacion" class="form-control">{{ old('prdPresentacion') }}</textarea>
                 <br>
                 Stock: <br>
-                <input type="number" name="prdStock" class="form-control" min="0">
+                <input type="number" name="prdStock"
+                       value="{{ old('prdStock') }}"
+                       class="form-control" min="0">
                 <br>
                 Imagen: <br>
 
