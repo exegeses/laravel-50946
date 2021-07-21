@@ -15,3 +15,12 @@
 
 > Usando mySQL Workbench, phpMyAdmin o similar, crear una nueva base de datos  
 
+- [ ] Configuramos el .env de nuestro proyecto para que apunte a esa nueva base de datos  
+
+- [ ] Correr las migraciones
+
+        php artisan migrate    
+
+- [ ] Descargamos Breeze usando composer
+
+        composer require laravel/breeze --dev  
