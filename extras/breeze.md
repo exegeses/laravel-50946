@@ -24,3 +24,18 @@
 - [ ] Descargamos Breeze usando composer
 
         composer require laravel/breeze --dev  
+
+> Luego que composer termina de descargar el package de Laravel Breeze, debemos terminar su instalación
+
+- [ ]  Instalamos breeze
+
+       php artisan breeze:install    
+
+> Este comando genera las vistas de autenticación, las routes, los controllers, y otros recursos de la instalación
+
+- [ ] Instalar TailwindCSS y algo de Javascript
+
+        npm install
+        npm run dev
+
+> webpack compiled successfully
