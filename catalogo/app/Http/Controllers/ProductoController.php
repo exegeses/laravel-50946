@@ -78,8 +78,13 @@ class ProductoController extends Controller
 
     private function subirImagen(Request $request)
     {
-        //si no enviaron imagen
+        //si no enviaron imagen store()
         $prdImagen = 'noDisponible.jpg';
+
+        //si no enviaron imagen update()
+        if( $request->has('imgActual') ){
+            $prdImagen = $request->imgActual;
+        }
 
         //si enviaron imagen, SUBIR ARCHIVO
         if( $request->file('prdImagen') ){
@@ -137,9 +142,21 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit($id)
     {
-        //
+        //obtenemos listados de marcas y categorias
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
+        //obtenemos datos de producto
+        $Producto = Producto::with(['getMarca', 'getCategoria'])
+                            ->find($id);
+        return view('modificarProducto',
+                        [
+                            'marcas'    => $marcas,
+                            'categorias'=> $categorias,
+                            'Producto'  => $Producto
+                        ]
+                    );
     }
 
     /**
@@ -151,7 +168,30 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        //validacion
+        $this->validarForm($request);
+        //subir imagen
+        $prdImagen = $this->subirImagen($request);
+        //obtener producto, asignar atributos y guardar
+        $Producto = Producto::find($request->idProducto);
+        $Producto->prdNombre = $prdNombre = $request->prdNombre;
+        $Producto->prdPrecio = $request->prdPrecio;
+        $Producto->idMarca = $request->idMarca;
+        $Producto->idCategoria = $request->idCategoria;
+        $Producto->prdPresentacion = $request->prdPresentacion;
+        $Producto->prdStock = $request->prdStock;
+        $Producto->prdImagen = $prdImagen;
+        $Producto->save();
+        //redirección con mensaje ok
+        return redirect('/adminProductos')
+            ->with(['mensaje'=>'Producto: '.$prdNombre.' modificado correctmente.']);
+    }
+
+    public function confirmarBaja($id)
+    {
+        //obtenemos datos de producto
+        $Producto = Producto::with([ 'getMarca', 'getCategoria' ])->find($id);
+        return view('eliminarProducto', [ 'Producto'=>$Producto ]);
     }
 
     /**
@@ -160,8 +200,14 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy(Request $request)
     {
-        //
+        Producto::destroy($request->idProducto);
+        return redirect('/adminProductos')
+                    ->with(
+            [
+                'mensaje'=>'Producto ' .$request->prdNombre. ' eliminado correctamente',
+            ]
+        );
     }
 }
